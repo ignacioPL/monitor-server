@@ -49,26 +49,26 @@ public class ProcesoService {
 
         List<Proceso> lp = new ArrayList<Proceso>();
 
-        String comando = "tasklist /nh /v";
+        String command = "tasklist /nh /v";
         
         if("linux".equals(soConfig.getOsName())){
-        	comando = "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu";
+        	command = "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu";
         }
         
-        CommandLine cmd1 = CommandLine.parse(comando);
+        CommandLine cmd = CommandLine.parse(command);
 
-        OutputStream output1 = new ByteArrayOutputStream();
+        OutputStream output = new ByteArrayOutputStream();
 
-        DefaultExecutor de1 = new DefaultExecutor();
-        de1.setStreamHandler( new PumpStreamHandler(output1));
+        DefaultExecutor de = new DefaultExecutor();
+        de.setStreamHandler(new PumpStreamHandler(output));
 
-        de1.execute(cmd1);
+        de.execute(cmd);
 
-        InputStream is1 = new ByteArrayInputStream( ((ByteArrayOutputStream)output1).toByteArray() );
+        InputStream inputStream = new ByteArrayInputStream( ((ByteArrayOutputStream)output).toByteArray() );
 
-        BufferedReader reader = new BufferedReader( new InputStreamReader(is1));
+        BufferedReader reader = new BufferedReader( new InputStreamReader(inputStream));
 
-        String line="";
+        String line;
 
         List<String> listaProcesos = new ArrayList<String>();
 
