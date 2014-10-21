@@ -4,24 +4,7 @@
     <meta charset="UTF-8">
     <title>Hola Mundo!!</title>
     <script type="text/javascript" src="/webjars/angularjs/1.3.0/angular.min.js"></script>
-    <script type="text/javascript">
-        angular.module('menuApp', [])
-                .controller('MenuController', ['$scope','$http', function($scope,$http) {
-                    $scope.getMem = function() {
-                        $http.get("/memory")
-                                .success(function(response) {
-                                    $scope.memo = true;
-                                    $scope.totalMem = response.totalMemory;
-                                    $scope.usedMem = response.usedMemory;
-                                    $scope.freeMem = response.freeMemory;
-                                })
-                                .error(function(response){
-                                    $scope.memo = undefined;
-                                    console.log("error: "+response);
-                                });
-                    };
-                }]);
-    </script>
+    <script type="text/javascript" src="/js/menu.js"></script>
 </head>
 <body>
 <h2>Menu Principal</h2>
@@ -33,7 +16,7 @@
         Used Memory: {{usedMem}}MB<br>
         Free Memory: {{freeMem}}MB<br>
     </div>
-    
+
 </div>
 </body>
 </html>
