@@ -7,18 +7,19 @@
     <script type="text/javascript">
         angular.module('menuApp', [])
                 .controller('MenuController', ['$scope','$http', function($scope,$http) {
-
                     $scope.getMem = function() {
-
                         $http.get("/memory")
                                 .success(function(response) {
                                     $scope.memo = true;
                                     $scope.totalMem = response.totalMemory;
                                     $scope.usedMem = response.usedMemory;
                                     $scope.freeMem = response.freeMemory;
+                                })
+                                .error(function(response){
+                                    $scope.memo = undefined;
+                                    console.log("error: "+response);
                                 });
                     };
-
                 }]);
     </script>
 </head>
@@ -28,11 +29,11 @@
     <button data-ng-click="getMem()">get Memory Usage</button>
     <br>
     <div data-ng-show="memo">
-        Total Memory:{{totalMem}}MB<br>
+        Total Memory: {{totalMem}}MB<br>
         Used Memory: {{usedMem}}MB<br>
         Free Memory: {{freeMem}}MB<br>
     </div>
-
+    
 </div>
 </body>
 </html>
