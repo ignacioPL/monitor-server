@@ -2,21 +2,72 @@
 <html data-ng-app="menuApp">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Hola Mundo!!</title>
+    <title>MonitorServer - Server</title>
     <script type="text/javascript" src="/webjars/angularjs/1.3.0/angular.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css">
     <script type="text/javascript" src="/js/menu.js"></script>
+    <style>
+        .my-offset{
+            /*padding-left: 10px;*/
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<h2>Menu Principal</h2>
-<div data-ng-controller="MenuController">
-    <button data-ng-click="getMem()">get Memory Usage</button>
-    <br>
-    <div data-ng-show="memo">
-        Total Memory: {{totalMem}}MB<br>
-        Used Memory: {{usedMem}}MB<br>
-        Free Memory: {{freeMem}}MB<br>
-    </div>
+<div class="my-offset" >
+    <h2>Menu Principal</h2>
+    <div data-ng-controller="MenuController">
+        <button  type="button" class="btn btn-primary" data-ng-click="getMem()">get Memory Usage</button>
+        <button  type="button" class="btn btn-primary" data-ng-click="getFileSystemUsage()">get File System Usage</button>
+        <button  type="button" class="btn btn-primary" data-ng-click="getProcess()">get Process</button>
+        <br><br>
+        <div data-ng-show="memo">
+            Total Memory: {{totalMem}}MB<br>
+            Used Memory: {{usedMem}}MB<br>
+            Free Memory: {{freeMem}}MB<br>
+        </div>
 
+        <div data-ng-show="fs">
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>available:</th>
+                    <th>filesystem:</th>
+                    <th>mounted On:</th>
+                    <th>size:</th>
+                    <th>use Percen:</th>
+                    <th>used:</th>
+                </tr>
+                <tr ng-repeat="disks in fileSystems">
+                    <td>{{disks.available}}</td>
+                    <td>{{disks.filesystem}}</td>
+                    <td>{{disks.mountedOn}}</td>
+                    <td>{{disks.size}}</td>
+                    <td>{{disks.usePercen}}</td>
+                    <td>{{disks.used}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div data-ng-show="ps">
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>PID:</th>
+                    <th>Name:</th>
+                    <th>% CPU:</th>
+                    <th>State:</th>
+                    <th>% Mem:</th>
+                </tr>
+                <tr ng-repeat="proces in process">
+                    <td>{{proces.pid}}</td>
+                    <td>{{proces.name}}</td>
+                    <td>{{proces.pcpu}}</td>
+                    <td>{{proces.state}}</td>
+                    <td>{{proces.pmem}}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>
