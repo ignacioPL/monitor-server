@@ -8,7 +8,6 @@
     <script type="text/javascript" src="/js/menu.js"></script>
     <style>
         .my-offset{
-            /*padding-left: 10px;*/
             text-align: center;
         }
     </style>
@@ -17,9 +16,9 @@
 <div class="my-offset" >
     <h2>Menu Principal</h2>
     <div data-ng-controller="MenuController">
-        <button  type="button" class="btn btn-primary" data-ng-click="getMem()">get Memory Usage</button>
-        <button  type="button" class="btn btn-primary" data-ng-click="getFileSystemUsage()">get File System Usage</button>
-        <button  type="button" class="btn btn-primary" data-ng-click="getProcess()">get Process</button>
+        <button  type="button" class="btn btn-primary" data-ng-click="getMem()">Memory Usage</button>
+        <button  type="button" class="btn btn-primary" data-ng-click="getFileSystemUsage()">File System Usage</button>
+        <button  type="button" class="btn btn-primary" data-ng-click="getProcess()">Process List</button>
         <br><br>
         <div data-ng-show="memo">
             Total Memory: {{totalMem}}MB<br>
@@ -30,12 +29,12 @@
         <div data-ng-show="fs">
             <table class="table table-bordered table-condensed">
                 <tr>
-                    <th>available:</th>
-                    <th>filesystem:</th>
-                    <th>mounted On:</th>
-                    <th>size:</th>
-                    <th>use Percen:</th>
-                    <th>used:</th>
+                    <th>Available:</th>
+                    <th>Filesystem:</th>
+                    <th>Mounted On:</th>
+                    <th>Size:</th>
+                    <th>% Use:</th>
+                    <th>Used:</th>
                 </tr>
                 <tr ng-repeat="disks in fileSystems">
                     <td>{{disks.available}}</td>
