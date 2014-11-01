@@ -1,4 +1,4 @@
-package edu.soa.monitorserver.server;
+package edu.soa.pdroid.server;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.SpringApplication;

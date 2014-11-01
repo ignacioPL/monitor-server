@@ -1,4 +1,4 @@
-package edu.soa.monitorserver.server.services;
+package edu.soa.pdroid.server.services;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -11,19 +11,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import edu.soa.pdroid.server.model.OsProcess;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.soa.monitorserver.server.model.Proceso;
-
 /**
  * Created by ignacio on 18/08/14.
  */
 @Service
-public class ProcesoService {
+public class ProcessService {
 
 	@Autowired
 	private SoConfig soConfig;
@@ -45,9 +44,9 @@ public class ProcesoService {
         de.execute(cmd);
     }
 
-    public List<Proceso> getProcesos() throws IOException {
+    public List<OsProcess> getProcesos() throws IOException {
 
-        List<Proceso> lp = new ArrayList<Proceso>();
+        List<OsProcess> lp = new ArrayList<OsProcess>();
 
         String command = "tasklist /nh /v";
         
@@ -95,7 +94,7 @@ public class ProcesoService {
         return lp;
     }
 
-    private Proceso getProceso(String line) {
+    private OsProcess getProceso(String line) {
         if(line.contains("%CPU")){
             return null;
         }
@@ -106,7 +105,7 @@ public class ProcesoService {
 
         String[] arrayLine = line.split("\\s+");
 
-        Proceso p = new Proceso();
+        OsProcess p = new OsProcess();
         
         if("linux".equals(soConfig.getOsName())){
 	        p.setPcpu(arrayLine[0]);

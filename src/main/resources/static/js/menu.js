@@ -34,7 +34,7 @@ angular.module('menuApp', [])
                 });
         };
         $scope.getProcess = function () {
-            $http.get("/proceso")
+            $http.get("/process")
                 .success(function (response) {
                     console.log(response);
                     $scope.process = response;

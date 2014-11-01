@@ -1,4 +1,4 @@
-package edu.soa.monitorserver.server.services;
+package edu.soa.pdroid.server.services;
 
 import org.springframework.stereotype.Service;
 

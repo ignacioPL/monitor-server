@@ -1,22 +1,24 @@
-package edu.soa.monitorserver.server.services;
+package edu.soa.pdroid.server.services;
 
-import edu.soa.monitorserver.server.model.ServerMemoryUsage;
+import edu.soa.pdroid.server.model.FileSystemUsage;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ignacio on 19/10/14.
  */
 @Service
-public class MemoryService {
+public class FileSystemService {
 
-    public ServerMemoryUsage getMemoryStatus() throws IOException {
+    public List<FileSystemUsage> getFileSystems() throws IOException {
 
-        String command = "free -m";
+        String command = "df -h -x tmpfs";
 
         CommandLine cmd = CommandLine.parse(command);
 
@@ -33,34 +35,35 @@ public class MemoryService {
 
         String line;
 
-        ServerMemoryUsage smu = new ServerMemoryUsage();
-
         boolean first = false;
-        boolean second = false;
-        boolean third = false;
+
+        List<FileSystemUsage> lista = new ArrayList<FileSystemUsage>();
 
         while( ( line=reader.readLine()) != null ){
 
             if(!first){
                 first = true;
-            }else if(!second){
-
-                String[] arrayLine = line.split("\\s+");
-
-                smu.setTotalMemory(arrayLine[1]);
-
-                second = true;
-            }else if (!third) {
-
-                String[] arrayLine = line.split("\\s+");
-
-                smu.setUsedMemory(arrayLine[2]);
-                smu.setFreeMemory(arrayLine[3]);
-                third = true;
+            }else{
+                lista.add(parseLine(line));
             }
         }
 
-        return smu;
+        return lista;
     }
 
+    private FileSystemUsage parseLine(String line) {
+
+        FileSystemUsage fsu = new FileSystemUsage();
+
+        String[] arrayLine = line.split("\\s+");
+
+        fsu.setFilesystem(arrayLine[0]);
+        fsu.setSize(arrayLine[1]);
+        fsu.setUsed(arrayLine[2]);
+        fsu.setAvailable(arrayLine[3]);
+        fsu.setUsePercen(arrayLine[4]);
+        fsu.setMountedOn(arrayLine[5]);
+
+        return fsu;
+    }
 }

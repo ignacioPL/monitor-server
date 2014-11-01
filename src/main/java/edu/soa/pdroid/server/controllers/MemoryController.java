@@ -1,7 +1,7 @@
-package edu.soa.monitorserver.server.controllers;
+package edu.soa.pdroid.server.controllers;
 
-import edu.soa.monitorserver.server.model.ServerMemoryUsage;
-import edu.soa.monitorserver.server.services.MemoryService;
+import edu.soa.pdroid.server.model.ServerMemoryUsage;
+import edu.soa.pdroid.server.services.MemoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

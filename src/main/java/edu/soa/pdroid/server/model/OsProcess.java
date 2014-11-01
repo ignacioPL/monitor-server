@@ -1,9 +1,9 @@
-package edu.soa.monitorserver.server.model;
+package edu.soa.pdroid.server.model;
 
 /**
  * Created by ignacio on 18/08/14.
  */
-public class Proceso {
+public class OsProcess {
 
     private String pid;
     private String name;
@@ -11,7 +11,7 @@ public class Proceso {
     private String state;
     private String pmem;
 
-    public Proceso() {
+    public OsProcess() {
     }
 
     public String getPid() {

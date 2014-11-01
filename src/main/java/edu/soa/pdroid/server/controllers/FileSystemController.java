@@ -1,7 +1,7 @@
-package edu.soa.monitorserver.server.controllers;
+package edu.soa.pdroid.server.controllers;
 
-import edu.soa.monitorserver.server.model.FileSystemUsage;
-import edu.soa.monitorserver.server.services.FileSystemService;
+import edu.soa.pdroid.server.model.FileSystemUsage;
+import edu.soa.pdroid.server.services.FileSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

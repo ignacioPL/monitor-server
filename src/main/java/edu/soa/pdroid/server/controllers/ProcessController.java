@@ -1,8 +1,9 @@
-package edu.soa.monitorserver.server.controllers;
+package edu.soa.pdroid.server.controllers;
 
 import java.io.IOException;
 import java.util.List;
 
+import edu.soa.pdroid.server.model.OsProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,24 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.soa.monitorserver.server.model.Proceso;
-import edu.soa.monitorserver.server.services.ProcesoService;
+import edu.soa.pdroid.server.services.ProcessService;
 
 @RestController
-@RequestMapping("/proceso")
-public class ProcesoController {
+@RequestMapping("/process")
+public class ProcessController {
 
 	@Autowired
-	private ProcesoService procesoService;
+	private ProcessService procesoService;
 
     @RequestMapping(method=RequestMethod.GET)
-    public ResponseEntity<List<Proceso>> showProcess() {
+    public ResponseEntity<List<OsProcess>> showProcess() {
         
     	 try {
-             return new ResponseEntity<List<Proceso>>(procesoService.getProcesos(),HttpStatus.OK);
+             return new ResponseEntity<List<OsProcess>>(procesoService.getProcesos(),HttpStatus.OK);
          } catch (IOException e) {
              e.printStackTrace();
-             return new ResponseEntity<List<Proceso>>(HttpStatus.NO_CONTENT);
+             return new ResponseEntity<List<OsProcess>>(HttpStatus.NO_CONTENT);
          }
     }
     

@@ -1,4 +1,4 @@
-package edu.soa.monitorserver.server.model;
+package edu.soa.pdroid.server.model;
 
 /**
  * Created by ignacio on 19/10/14.
