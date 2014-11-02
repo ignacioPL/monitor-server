@@ -31,10 +31,10 @@ public class ProcessController {
          log.info("showProcess Required");
 
     	 try {
-             return new ResponseEntity<List<OsProcess>>(procesoService.getProcesos(),HttpStatus.OK);
+             return new ResponseEntity<>(procesoService.getProcesos(),HttpStatus.OK);
          } catch (IOException e) {
              log.error(e.getMessage());
-             return new ResponseEntity<List<OsProcess>>(HttpStatus.NO_CONTENT);
+             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
          }
     }
     
@@ -47,14 +47,14 @@ public class ProcessController {
             Integer.parseInt(pid);
         }catch(Exception e){
             log.error(e.getMessage());
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         try {
             procesoService.killProceso(pid);
         } catch (IOException e) {
             log.error(e.getMessage());
-            return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         log.info("process "+pid+" killed");

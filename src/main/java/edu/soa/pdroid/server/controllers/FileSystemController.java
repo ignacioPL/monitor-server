@@ -32,10 +32,10 @@ public class FileSystemController {
         log.info("FileSystem Usage required");
 
         try {
-            return new ResponseEntity<List<FileSystemUsage>>(fileSystemService.getFileSystems(), HttpStatus.OK);
+            return new ResponseEntity<>(fileSystemService.getFileSystems(), HttpStatus.OK);
         } catch (IOException e) {
             log.error(e.getMessage());
-            return new ResponseEntity<List<FileSystemUsage>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 }

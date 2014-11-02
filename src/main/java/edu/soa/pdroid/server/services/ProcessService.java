@@ -69,7 +69,7 @@ public class ProcessService {
 
         String line;
 
-        List<String> listaProcesos = new ArrayList<String>();
+        List<String> listaProcesos = new ArrayList<>();
 
         while( (line=reader.readLine()) != null ){
             listaProcesos.add(line);

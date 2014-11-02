@@ -31,10 +31,10 @@ public class MemoryController {
         log.info("memory usage requested");
 
         try {
-            return new ResponseEntity<ServerMemoryUsage>(memoryService.getMemoryStatus(), HttpStatus.OK);
+            return new ResponseEntity<>(memoryService.getMemoryStatus(), HttpStatus.OK);
         } catch (IOException e) {
             log.error(e.getMessage());
-            return new ResponseEntity<ServerMemoryUsage>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
     }
