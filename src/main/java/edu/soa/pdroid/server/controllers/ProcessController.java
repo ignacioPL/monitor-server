@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import edu.soa.pdroid.server.model.OsProcess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +23,17 @@ public class ProcessController {
 	@Autowired
 	private ProcessService procesoService;
 
+    private Logger log = LoggerFactory.getLogger(ProcessController.class);
+
     @RequestMapping(method=RequestMethod.GET)
     public ResponseEntity<List<OsProcess>> showProcess() {
-        
+
+         log.info("showProcess Required");
+
     	 try {
              return new ResponseEntity<List<OsProcess>>(procesoService.getProcesos(),HttpStatus.OK);
          } catch (IOException e) {
-             e.printStackTrace();
+             log.error(e.getMessage());
              return new ResponseEntity<List<OsProcess>>(HttpStatus.NO_CONTENT);
          }
     }
@@ -35,17 +41,23 @@ public class ProcessController {
     @RequestMapping(value="/{pid}", method=RequestMethod.DELETE)
     public ResponseEntity<Object> killProceso(@PathVariable("pid") String pid){
 
+        log.info("kill process invoked with pid: "+pid);
+
         try {
             Integer.parseInt(pid);
         }catch(Exception e){
+            log.error(e.getMessage());
             return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
         }
 
         try {
             procesoService.killProceso(pid);
         } catch (IOException e) {
+            log.error(e.getMessage());
             return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        log.info("process "+pid+" killed");
 
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
