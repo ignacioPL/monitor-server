@@ -39,7 +39,7 @@ public class ProcessController {
     }
     
     @RequestMapping(value="/{pid}", method=RequestMethod.DELETE)
-    public ResponseEntity<Object> killProceso(@PathVariable("pid") String pid){
+    public ResponseEntity<Object> killProcess(@PathVariable("pid") String pid){
 
         log.info("kill process invoked with pid: "+pid);
 
