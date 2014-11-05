@@ -76,9 +76,8 @@ public class ProcessService {
             listaProcesos.add(line);
         }
 
-        listaProcesos.remove(0);
-
         return listaProcesos.stream()
+                            .skip(1)
                             .sorted(Comparator.reverseOrder())
                             .filter(s -> !s.startsWith(" 0.0"))
                             .map(s -> getProceso(s))
@@ -86,9 +85,9 @@ public class ProcessService {
     }
 
     private OsProcess getProceso(String line) {
-        if(line.contains("%CPU")){
-            return null;
-        }
+       // if(line.contains("%CPU")){
+       //     return null;
+       // }
 
         if( line.startsWith(" ") ){
             line = line.replaceFirst(" ","");
