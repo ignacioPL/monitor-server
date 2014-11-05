@@ -31,7 +31,7 @@ public class ProcessController {
          log.info("showProcess Required");
 
     	 try {
-             return new ResponseEntity<>(procesoService.getProcesos(),HttpStatus.OK);
+             return new ResponseEntity<>(procesoService.getProcess(),HttpStatus.OK);
          } catch (IOException e) {
              log.error(e.getMessage());
              return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -51,7 +51,7 @@ public class ProcessController {
         }
 
         try {
-            procesoService.killProceso(pid);
+            procesoService.killProcess(pid);
         } catch (IOException e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
