@@ -27,7 +27,7 @@ public class ProcessServiceTest {
     @Test
     public void listOfProcessTest() throws IOException {
 
-        List<OsProcess> listOfProcess = processService.getProcesos();
+        List<OsProcess> listOfProcess = processService.getProcess();
 
         assertTrue(listOfProcess.size() > 0);
     }

@@ -8,8 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import edu.soa.pdroid.server.model.OsProcess;
 import org.apache.commons.exec.CommandLine;
@@ -25,13 +26,13 @@ import org.springframework.stereotype.Service;
 public class ProcessService {
 
 	@Autowired
-	private SoConfig soConfig;
+	private OsConfig osConfig;
 	
-    public void killProceso(String pid) throws IOException {
+    public void killProcess(String pid) throws IOException {
         
     	String killProcess = "taskkill -PID";
     	
-    	if("linux".equals(soConfig.getOsName())){
+    	if("linux".equals(osConfig.getOsName())){
     		killProcess = "kill"; 
     	}
     	
@@ -44,13 +45,13 @@ public class ProcessService {
         de.execute(cmd);
     }
 
-    public List<OsProcess> getProcesos() throws IOException {
+    public List<OsProcess> getProcess() throws IOException {
 
         List<OsProcess> lp = new ArrayList<OsProcess>();
 
         String command = "tasklist /nh /v";
         
-        if("linux".equals(soConfig.getOsName())){
+        if("linux".equals(osConfig.getOsName())){
         	command = "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu";
         }
         
@@ -75,29 +76,18 @@ public class ProcessService {
             listaProcesos.add(line);
         }
 
-        listaProcesos.remove(0);
-
-        Collections.reverse(listaProcesos);
-
-        int count=0;
-        for(String s : listaProcesos){
-            if( s.startsWith(" 0.0") ){
-                if(count<10){
-                    count++;
-                }else {
-                    break;
-                }
-            }
-            lp.add(getProceso(s));
-        }
-
-        return lp;
+        return listaProcesos.stream()
+                            .skip(1)
+                            .sorted(Comparator.reverseOrder())
+                            .filter(s -> !s.startsWith(" 0.0"))
+                            .map(s -> getProceso(s))
+                            .collect(Collectors.toList());
     }
 
     private OsProcess getProceso(String line) {
-        if(line.contains("%CPU")){
-            return null;
-        }
+       // if(line.contains("%CPU")){
+       //     return null;
+       // }
 
         if( line.startsWith(" ") ){
             line = line.replaceFirst(" ","");
@@ -107,7 +97,7 @@ public class ProcessService {
 
         OsProcess p = new OsProcess();
         
-        if("linux".equals(soConfig.getOsName())){
+        if("linux".equals(osConfig.getOsName())){
 	        p.setPcpu(arrayLine[0]);
 	        p.setPid(arrayLine[1]);
 	        p.setState(arrayLine[2]);

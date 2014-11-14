@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class SoConfig {
+public class OsConfig {
 
 	private String osName;
 
-    private Logger log = LoggerFactory.getLogger(SoConfig.class);
+    private Logger log = LoggerFactory.getLogger(OsConfig.class);
 
-    public SoConfig(){
+    public OsConfig(){
         this.osName = System.getProperty("os.name").toLowerCase();
         log.info("OS Name: "+this.osName);
     }
