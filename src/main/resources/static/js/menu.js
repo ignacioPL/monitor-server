@@ -9,6 +9,7 @@ angular.module('menuApp', [])
                     $scope.memo = true;
                     $scope.fs = false;
                     $scope.ps = false;
+                    $scope.showPing = false;
                     $scope.totalMem = response.totalMemory;
                     $scope.usedMem = response.usedMemory;
                     $scope.freeMem = response.freeMemory;
@@ -25,11 +26,13 @@ angular.module('menuApp', [])
                     $scope.fileSystems = response;
                     $scope.memo = false;
                     $scope.ps = false;
+                    $scope.showPing = false;
                     $scope.fs = true;
                 })
                 .error(function(response) {
                     $scope.memo = false;
                     $scope.fs = false;
+                    $scope.showPing = false;
                     console.log("error: " + response);
                 });
         };
@@ -41,11 +44,13 @@ angular.module('menuApp', [])
                     $scope.fs = false;
                     $scope.memo = false;
                     $scope.ps = true;
+                    $scope.showPing = false;
                 })
                 .error(function(response){
                     $scope.memo = false;
                     $scope.fs = false;
                     $scope.ps = false;
+                    $scope.showPing = false;
                     console.log("error: " + response);
                 });
         };

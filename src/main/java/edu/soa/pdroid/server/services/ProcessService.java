@@ -80,14 +80,11 @@ public class ProcessService {
                             .skip(1)
                             .sorted(Comparator.reverseOrder())
                             .filter(s -> !s.startsWith(" 0.0"))
-                            .map(s -> getProceso(s))
+                            .map(s -> mapProcess(s))
                             .collect(Collectors.toList());
     }
 
-    private OsProcess getProceso(String line) {
-       // if(line.contains("%CPU")){
-       //     return null;
-       // }
+    private OsProcess mapProcess(String line) {
 
         if( line.startsWith(" ") ){
             line = line.replaceFirst(" ","");

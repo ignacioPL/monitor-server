@@ -19,7 +19,18 @@
         <button  type="button" class="btn btn-primary" data-ng-click="getMem()">Memory Usage</button>
         <button  type="button" class="btn btn-primary" data-ng-click="getFileSystemUsage()">File System Usage</button>
         <button  type="button" class="btn btn-primary" data-ng-click="getProcess()">Process List</button>
+        <button  type="button" class="btn btn-primary" data-ng-model="showPing" data-ng-click="showPing = true">Ping</button>
         <br><br>
+
+        <div data-ng-show="showPing">
+            <form class="form-horizontal">
+                <div class="col-xs-4">
+                    <input type="text" class="form-control">
+                    <button type="button" class="btn btn-primary" >Ping</button>
+                </div>
+            </form>
+        </div>
+
         <div data-ng-show="memo">
             Total Memory: {{totalMem}}MB<br>
             Used Memory: {{usedMem}}MB<br>
