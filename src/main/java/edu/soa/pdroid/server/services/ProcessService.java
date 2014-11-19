@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import edu.soa.pdroid.server.model.OsProcess;
@@ -47,8 +48,6 @@ public class ProcessService {
 
     public List<OsProcess> getProcess() throws IOException {
 
-        List<OsProcess> lp = new ArrayList<OsProcess>();
-
         String command = "tasklist /nh /v";
         
         if("linux".equals(osConfig.getOsName())){
@@ -68,15 +67,11 @@ public class ProcessService {
 
         BufferedReader reader = new BufferedReader( new InputStreamReader(inputStream));
 
-        String line;
+        List<String> listOfProcess = reader.lines().collect(Collectors.toList());
 
-        List<String> listaProcesos = new ArrayList<>();
+        reader.close();
 
-        while( (line=reader.readLine()) != null ){
-            listaProcesos.add(line);
-        }
-
-        return listaProcesos.stream()
+        return listOfProcess.stream()
                             .skip(1)
                             .sorted(Comparator.reverseOrder())
                             .filter(s -> !s.startsWith(" 0.0"))

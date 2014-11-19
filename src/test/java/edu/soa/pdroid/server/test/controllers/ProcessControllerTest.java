@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 public class ProcessControllerTest {
 
-
     private MockMvc mockMvc;
 
     @Autowired
