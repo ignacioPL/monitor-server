@@ -20,5 +20,25 @@ public class OsConfig {
 	public String getOsName(){
 		return this.osName;
 	}
-	
+
+    public String getProcessListCommand(){
+        String command = "tasklist /nh /v";
+
+        if("linux".equals(this.osName)){
+            command = "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu";
+        }
+
+        return command;
+    }
+
+    public String getKillCommand(){
+        String killProcess = "taskkill -PID";
+
+        if("linux".equals(this.osName)){
+            killProcess = "kill";
+        }
+
+        return killProcess;
+    }
+
 }

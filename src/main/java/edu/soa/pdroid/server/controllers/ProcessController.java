@@ -59,6 +59,6 @@ public class ProcessController {
 
         log.info("process "+pid+" killed");
 
-        return new ResponseEntity<Object>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

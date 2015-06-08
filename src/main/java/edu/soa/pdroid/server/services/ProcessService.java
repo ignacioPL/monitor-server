@@ -31,11 +31,7 @@ public class ProcessService {
 	
     public void killProcess(String pid) throws IOException {
         
-    	String killProcess = "taskkill -PID";
-    	
-    	if("linux".equals(osConfig.getOsName())){
-    		killProcess = "kill"; 
-    	}
+        String killProcess = osConfig.getKillCommand();
     	
     	CommandLine cmd = new CommandLine(killProcess);
 
@@ -48,11 +44,7 @@ public class ProcessService {
 
     public List<OsProcess> getProcess() throws IOException {
 
-        String command = "tasklist /nh /v";
-        
-        if("linux".equals(osConfig.getOsName())){
-        	command = "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu";
-        }
+        String command = osConfig.getProcessListCommand();
         
         CommandLine cmd = CommandLine.parse(command);
 
@@ -67,16 +59,14 @@ public class ProcessService {
 
         BufferedReader reader = new BufferedReader( new InputStreamReader(inputStream));
 
-        List<String> listOfProcess = reader.lines().collect(Collectors.toList());
-
+        List<OsProcess> ll = reader.lines()
+                                   .skip(1)
+                                   .sorted(Comparator.<String>reverseOrder())
+                                   .filter(s->!s.startsWith(" 0.0"))
+                                   .map(s-> mapProcess(s))
+                                   .collect(Collectors.toList());
         reader.close();
-
-        return listOfProcess.stream()
-                            .skip(1)
-                            .sorted(Comparator.reverseOrder())
-                            .filter(s -> !s.startsWith(" 0.0"))
-                            .map(s -> mapProcess(s))
-                            .collect(Collectors.toList());
+        return ll;
     }
 
     private OsProcess mapProcess(String line) {
