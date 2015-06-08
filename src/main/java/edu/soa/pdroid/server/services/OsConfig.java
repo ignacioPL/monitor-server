@@ -4,11 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class OsConfig {
 
-	private String osName;
+    private String osName;
 
     private Logger log = LoggerFactory.getLogger(OsConfig.class);
 
@@ -22,23 +21,11 @@ public class OsConfig {
 	}
 
     public String getProcessListCommand(){
-        String command = "tasklist /nh /v";
-
-        if("linux".equals(this.osName)){
-            command = "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu";
-        }
-
-        return command;
+        return "linux".equals(this.osName) ? "ps -e -o pcpu,pid,state,pmem,fname --sort pcpu" : "tasklist /nh /v"  ;
     }
 
     public String getKillCommand(){
-        String killProcess = "taskkill -PID";
-
-        if("linux".equals(this.osName)){
-            killProcess = "kill";
-        }
-
-        return killProcess;
+        return "linux".equals(this.osName) ? "kill" : "taskkill -PID";
     }
 
 }
